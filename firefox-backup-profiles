@@ -1,0 +1,30 @@
+#!/bin/sh
+# Backup essential Firefox profile files
+
+# Source for filenames: https://support.mozilla.org/de/kb/benutzerprofile-mit-ihren-persoenlichen-daten
+
+TARGET=$1
+[ -z $TARGET ] && TARGET="firefox-backup-profiles.7z"
+INCLUDED_FILES=""
+
+# Bookmarks + History
+INCLUDED_FILES="$INCLUDED_FILES -ir\!.mozilla/places.sqlite"
+
+# Passwords
+INCLUDED_FILES="$INCLUDED_FILES -ir\!.mozilla/key3.db"
+INCLUDED_FILES="$INCLUDED_FILES -ir\!.mozilla/logins.json"
+
+# Site-specific permissions
+INCLUDED_FILES="$INCLUDED_FILES -ir\!.mozilla/permissions.sqlite"
+INCLUDED_FILES="$INCLUDED_FILES -ir\!.mozilla/content-prefs.sqlite"
+
+# Search engines
+INCLUDED_FILES="$INCLUDED_FILES -ir\!.mozilla/search.json.mozlz4"
+
+# Personal dictionary
+INCLUDED_FILES="$INCLUDED_FILES -ir\!.mozilla/persdict.dat"
+
+# Form history
+INCLUDED_FILES="$INCLUDED_FILES -ir\!.mozilla/formhistory.sqlite"
+
+eval "7z a -mx9 $TARGET $INCLUDED_FILES"

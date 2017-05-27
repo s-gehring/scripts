@@ -1,0 +1,18 @@
+#!/bin/bash
+playercmd="vlc --no-fullscreen"
+
+for i in *; do
+	if [[ ! -d $i ]]; then
+		echo $i
+		$playercmd "$i" &> /dev/null &
+		echo "Preview selection: "
+		read -n 1 selection
+		if [[ $selection == "" ]]; then
+			selection="_"
+		fi
+
+		if [[ ! -e $selection ]]; then mkdir $selection; fi
+		mv "$i" "$selection"
+		killall -9 vlc > /dev/null
+	fi
+done

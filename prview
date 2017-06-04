@@ -1,10 +1,13 @@
 #!/bin/bash
-playercmd="vlc --no-fullscreen"
+playercmd="vlc"
+playerparam="--no-fullscreen"
+playercmd="mpv"
+playerparam="--no-fs"
 
 for i in *; do
 	if [[ ! -d $i ]]; then
 		echo $i
-		$playercmd "$i" &> /dev/null &
+		$playercmd $playerparam "$i" &> /dev/null &
 		echo "Preview selection: "
 		read -n 1 selection
 		if [[ $selection == "" ]]; then
@@ -12,7 +15,7 @@ for i in *; do
 		fi
 
 		if [[ ! -e $selection ]]; then mkdir $selection; fi
-		mv "$i" "$selection"
-		killall -9 vlc > /dev/null
+		mv "$i" "$selection" -v
+		killall -9 $playercmd 2&> /dev/null
 	fi
 done

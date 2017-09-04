@@ -1,0 +1,35 @@
+#!/bin/sh
+# Archives a given file or folder and verifies existing archives
+
+SHASUMS="shasums.txt"
+
+die() {
+	echo "\033[0;31m" # <-- Red
+	echo "$1"
+	echo "Cannot continue, terminating..."
+	exit -1
+}
+shaverify() {
+	[ ! -e $SHASUMS ] && return 0
+	echo "Verifying using shasums..."
+	shasum --check $SHASUMS || return -1
+}
+szverify() {
+	for i in *.7z; do
+		[ ! -e "$i" ] && break;
+		7z t "$i" || return -1;
+	done
+}
+archive() {
+	[ ! -e "$1" ] && return -1
+	newarchive="$1.7z"
+	[ -e "$newarchive" ] && echo "$newarchive already exists" && return 0
+	echo "Archiving $1..."	
+	7z a -mx9 -t7z -xr!.DS_Store "$newarchive" "$1" || return -1
+    	shasum -p "$newarchive" >> $SHASUMS
+}
+
+shaverify || die "WARNING: SHA verification failed."
+szverify || die "WARNING: 7Z Verification failed."
+archive "$1" || die "WARNING: Archiving $1 failed."
+

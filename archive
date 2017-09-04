@@ -21,7 +21,7 @@ szverify() {
 	done
 }
 archive() {
-	[ ! -e "$1" ] && return -1
+	[ ! -e "$1" ] && return 0
 	newarchive="$1.7z"
 	[ -e "$newarchive" ] && echo "$newarchive already exists" && return 0
 	echo "Archiving $1..."	

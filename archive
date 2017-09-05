@@ -31,7 +31,7 @@ archive() {
     	shasum -p "$newarchive" >> $SHASUMS
 }
 
+#szverify || die "WARNING: 7Z Verification failed."
+archive "$1" || die "WARNING: Archiving $1 failed." &
 shaverify || die "WARNING: SHA verification failed."
-szverify || die "WARNING: 7Z Verification failed."
-archive "$1" || die "WARNING: Archiving $1 failed."
 

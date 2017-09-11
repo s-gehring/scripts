@@ -15,7 +15,7 @@ for i in *; do
 		fi
 
 		if [[ ! -e $selection ]]; then mkdir $selection; fi
-		mv "$i" "$selection" -v
+		mv -v "$i" "$selection"
 		killall -9 $playercmd 2&> /dev/null
 	fi
 done

@@ -30,8 +30,16 @@ archive() {
 	7z a -mx9 -t7z -xr!.DS_Store "$newarchive" "$1" || return -1
     	shasum -p "$newarchive" >> $SHASUMS
 }
+possiblydelete() {
+	echo "Delete $1? (y/*)"
+	read -n 1 selection
+	if [ "$selection" == "y" ]; then
+		rm -Rf "$1"
+	fi
+}
 
 #szverify || die "WARNING: 7Z Verification failed."
 archive "$1" || die "WARNING: Archiving $1 failed." &
 shaverify || die "WARNING: SHA verification failed."
+possiblydelete "$1"
 

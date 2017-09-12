@@ -31,6 +31,7 @@ archive() {
     	shasum -p "$newarchive" >> $SHASUMS
 }
 possiblydelete() {
+	[ -z "$1" ] && return 0
 	echo "Delete $1? (y/*)"
 	read -n 1 selection
 	if [ "$selection" == "y" ]; then

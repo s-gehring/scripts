@@ -39,7 +39,7 @@ possiblydelete() {
 }
 
 #szverify || die "WARNING: 7Z Verification failed."
-archive "$1" || die "WARNING: Archiving $1 failed." &
-shaverify || die "WARNING: SHA verification failed."
+shaverify || die "WARNING: SHA verification failed." &
+archive "$1" || die "WARNING: Archiving $1 failed."
 possiblydelete "$1"
 

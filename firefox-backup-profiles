@@ -6,7 +6,7 @@
 TARGET=$1
 [ -z $TARGET ] && TARGET="firefox-backup-profiles.7z"
 
-FF_PROFILE="$HOME/Library/Application\ Support/Firefox/Profiles/default"
+FF_PROFILE="$HOME/Library/Application\ Support/Firefox/"
 
 INCLUDED_FILES=""
 

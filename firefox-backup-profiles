@@ -31,4 +31,4 @@ INCLUDED_FILES="$INCLUDED_FILES -ir\!$FF_PROFILE/persdict.dat"
 INCLUDED_FILES="$INCLUDED_FILES -ir\!$FF_PROFILE/formhistory.sqlite"
 
 
-eval "7z a -mx9 $TARGET $INCLUDED_FILES"
+eval "7z u -mx9 -ms=off $TARGET $INCLUDED_FILES"

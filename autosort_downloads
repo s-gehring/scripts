@@ -1,0 +1,38 @@
+#!/bin/zsh
+# No fall through operator (;&) in OSX default bash (Version < 4)
+
+filename=$(basename $*)
+tempdir="temp$RANDOM"
+
+function notify() {
+	/usr/local/bin/terminal-notifier -sound default -title "Download Autosort" -message "$*"
+}
+
+if [ ! -e $* ]; then
+	notify "File not found $*"
+	exit
+fi
+
+case "$filename" in 
+	Linux_Magazin*.zip )
+		notify "Detected Linux Magazin abo download."
+		cd ~/Downloads
+		mkdir $tempdir 
+		mv $filename $tempdir
+		cd $tempdir
+		unzip $filename
+		mv */*.pdf ~/Lesestapel
+		cd ..
+		rm -Rf $tempdir
+		;;
+	Extra_Konto*Kontoauszug*.pdf) ;&
+	Girokonto*Kontoauszug*.pdf)
+		notify "Detected Kontoauszug"
+		cd ~/Downloads
+		mv $filename ~/Documents/Bürokratie/
+		;;
+	"" )
+		notify "Nothing provided";;
+	default)
+		notify "Don't know how to handle $*";;
+esac

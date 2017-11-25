@@ -13,5 +13,5 @@ linkLatest() {
 }
 
 linkLatest
-rsync -avHF --stats --copy-links --link-dest="/$target/latest/" "$source/" "$target/`date +%Y-%m-%d-%H-%M-%S`/"
+rsync -avHF --stats --link-dest="/$target/latest/" "$source/" "$target/`date +%Y-%m-%d-%H-%M-%S`/"
 linkLatest

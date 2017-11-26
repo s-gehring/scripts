@@ -1,0 +1,7 @@
+#!/bin/sh
+
+brew update
+brew upgrade -all
+brew cleanup
+brew cask cleanup
+brew linkapps --local
